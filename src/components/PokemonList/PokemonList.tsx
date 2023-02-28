@@ -14,26 +14,7 @@ export function PokemonList(){
         name: ''
     }
 
-    const[listOfPokemons, setListPoke] = useState<Pokemon[]>([
-        {
-            damage: 20,
-            health: 100,
-            img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png',
-            name: 'ditto',
-            level: 3
-          }, {
-            damage: 10,
-            health: 100,
-            img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/134.png',
-            name: 'random',
-            level: 3
-          }, {
-            damage: 200,
-          health: 100,
-          img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
-          name: 'firstPoke',
-          level: 3
-          }])
+    const[listOfPokemons, setListPoke] = useState<Pokemon[]>([])
 
     function onSubmitPoke(event: React.FormEvent<HTMLFormElement>){
         event.preventDefault();
@@ -55,10 +36,28 @@ export function PokemonList(){
         newPokemon.name = event.target.value;
     }
 
+    function deletePoke(event: React.FormEvent<HTMLFormElement>){
+        event.preventDefault();
+        for (let i = 0; i < listOfPokemons.length; i++){
+            if (listOfPokemons[i].name == newPokemon.name){
+                listOfPokemons.splice(i, 1);
+            }
+            
+        }
+    }
+
     return (
     <div>
         <h3>Add Pokemon</h3>
         <form className="grid" onSubmit={onSubmitPoke}>
+            <label>Name</label>
+            <input type="text" onChange={setNamePoke}></input>
+            <br/>
+            <input type="submit"></input>
+        </form>
+
+        <h3>Delete Pokemon</h3>
+        <form className="grid" onSubmit={deletePoke}>
             <label>Name</label>
             <input type="text" onChange={setNamePoke}></input>
             <br/>
